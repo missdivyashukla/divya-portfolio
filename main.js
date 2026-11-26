@@ -293,16 +293,16 @@ var STEPS=[
  ['Measure','Track clicks, sign-ups and conversions, then feed what I learn into the next round.']
 ];
 var BUILT=[
- {t:'Programmatic page systems',tag:'Programmatic SEO',img:'assets/icon-proof.png',sum:'Template and data systems that turn into many ranking pages.',
+ {t:'Programmatic page systems',tag:'Programmatic SEO',img:'icon-proof.png',sum:'Template and data systems that turn into many ranking pages.',
   pts:['Postfity: organic traffic from 450 to 1M with programmatic SEO and automation.','Otto: 170 pages launched.','Google Sheets holds keyword lists, page data and templates.'],
   links:[['s05','cs-postfity','Postfity case study'],['s05','cs-otto','Otto case study']]},
- {t:'SEO dashboards and reporting',tag:'Analytics',img:'assets/icon-intro.png',sum:'Reporting that connects search activity to outcomes.',
+ {t:'SEO dashboards and reporting',tag:'Analytics',img:'icon-intro.png',sum:'Reporting that connects search activity to outcomes.',
   pts:['Search Console for clicks, impressions and indexing.','GA4 for audiences, events and conversions.','Tag Manager for event tracking and Looker Studio for dashboards.'],
   links:[['s04',null,'Skills & tools']]},
- {t:'Technical SEO audits',tag:'Technical SEO',img:'assets/icon-cases.png',sum:'Checks that keep important pages crawlable, indexable and fast.',
+ {t:'Technical SEO audits',tag:'Technical SEO',img:'icon-cases.png',sum:'Checks that keep important pages crawlable, indexable and fast.',
   pts:['Crawls with Screaming Frog to audit links and metadata.','PageSpeed Insights for performance and Core Web Vitals.','Rich Results Test for rich result eligibility.'],
   links:[['s04',null,'Skills & tools']]},
- {t:'AI search experiments',tag:'GEO & AEO',img:'assets/icon-skills.png',sum:'Testing how trustworthy information becomes easy for AI search to cite.',
+ {t:'AI search experiments',tag:'GEO & AEO',img:'icon-skills.png',sum:'Testing how trustworthy information becomes easy for AI search to cite.',
   pts:['Clear entities and truthful structured data.','Natural-language questions answered directly.','No manipulation. Deceiving AI search is not a durable strategy.'],
   links:[['s02',null,'Search City game'],['s09',null,'Ask MeowSEO']]}
 ];
