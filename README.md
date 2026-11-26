@@ -50,7 +50,8 @@ After uploading, the repository root must show `src/`, `scripts/` and `package.j
 
     src/index.html        all pages (one <section> or <div class="page"> per route)
     src/css/styles.css    theme tokens at the top of :root
-    src/js/main.js        router, game, chatbot, interactions, homepage content lists
+    src/js/main.js        router, game, MeowSEO interface, interactions, homepage content lists
+    src/js/meowseo-data.js  all MeowSEO questions and answers (edit this file)
     src/assets/           Catalyst illustrations (do not edit or replace)
     src/_headers          security headers and asset caching (Cloudflare Pages)
     scripts/build.mjs     copies src/ to dist/ and checks local asset references
@@ -60,6 +61,12 @@ After uploading, the repository root must show `src/`, `scripts/` and `package.j
 Open `src/js/main.js` and find the block headed `HOMEPAGE CONTENT`. The lists
 `CAPS`, `STEPS`, `BUILT`, `EXPLORING`, `MINI_TL` and `FUN` drive the capability cards,
 process steps, project gallery, "Currently exploring", mini timeline and fun facts.
+
+## Editing MeowSEO (the Ask the cat page)
+
+MeowSEO is a curated Q&A, not an AI. There is no API or backend. Open `src/js/meowseo-data.js`
+and edit the questions (`q`), answers (`a`), follow-up suggestions (`follow`) and typed-match
+words (`keys`). The file's header explains each field.
 
 ## Notes
 

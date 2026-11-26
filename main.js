@@ -1,6 +1,6 @@
 (function(){
-var FLOAT="catalyst-avatar.png";
-var GIGGLE="catalyst-giggle.png";
+var FLOAT="assets/catalyst-avatar.png";
+var GIGGLE="assets/catalyst-giggle.png";
 (new Image()).src=GIGGLE;
 var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function $(s,r){return (r||document).querySelector(s)}
@@ -237,42 +237,93 @@ window.addEventListener('keydown',function(e){
 });
 newGame();
 
-/* ---------- MeowSEO chat ---------- */
-var log=$('#log'),sugg=$('#sugg');
-function addMsg(t,who){
-  var d=document.createElement('div');d.className='b '+who;
-  d.innerHTML=(who==='bot'?'<img src="'+FLOAT+'" alt="">':'')+'<p>'+esc(t)+'</p>';
-  log.appendChild(d);log.scrollTop=log.scrollHeight;
-}
-var KB=[
- {k:['hello','hi ','hey','meow'],a:"Meow! I’m MeowSEO, Catalyst’s corner of Divya’s portfolio. Ask me about her case studies, skills, tools or how to get in touch."},
- {k:['postfity'],a:"At Postfity, Divya grew organic traffic from 450 to 1M by combining programmatic SEO and automation. It’s the project that shows what she likes most about SEO: building a process that can scale."},
- {k:['simplified'],a:"At Simplified, Divya contributed to the team effort that grew organic clicks to 1M per day. Alongside that growth, the team increased the conversion rate by 30%."},
- {k:['creditmitra','credit mitra','audience','33'],a:"At CreditMitra, Divya contributed to growing the website audience from 4.6K active users in March 2026 to more than 155K by September 2026, about 33.8×."},
- {k:['result','number','proof','impact','traffic','clicks','stats'],a:"The headline numbers: 1M organic traffic at Postfity, 1M organic clicks per day at Simplified, and about 33.8× audience growth at CreditMitra."},
- {k:['programmatic'],a:"Programmatic SEO means templates and data that turn into thousands of ranking pages. It’s how Divya took Postfity from 450 to 1M organic traffic, with automation and human review keeping quality up."},
- {k:['automation','n8n','apps script','workflow'],a:"SEO automation here means workflows that remove repetitive tasks and scale output. Tools in Divya’s kit include Google Sheets, Google Apps Script and n8n, and she keeps human review in the loop."},
- {k:['skill','expertise','good at','strength'],a:"Six areas: programmatic SEO, SEO automation, technical SEO, content strategy, analytics and CRO, and a growth mindset (experiment, measure, repeat)."},
- {k:['tool','ahrefs','semrush','screaming','search console','analytics','stack'],a:"Her directory covers Google Search Console, GA4, Tag Manager and Looker Studio; Ahrefs, Semrush, Google Trends and Keyword Planner; Screaming Frog, PageSpeed Insights and the Rich Results Test; plus Google Sheets, Apps Script and n8n. Filter them in the Skills section."},
- {k:['technical','crawl','index'],a:"Technical SEO is about keeping important pages crawlable, indexable and fast. Screaming Frog, PageSpeed Insights and the Rich Results Test are the tools listed for it."},
- {k:['contact','email','reach','hire','résumé','resume','cv','linkedin'],a:"Email shukladivya1972@gmail.com or find Divya on LinkedIn at linkedin.com/in/divya-kumari-shukla. Her résumé is available on request by email."},
- {k:['game','play','search city','hazard','essential'],a:"Catalyst’s Search City is in the Introduction. Collect all 20 SEO essentials, dodge the 20 hazards (you have 3 hearts), knock over bins for chaos points and get home to win."},
- {k:['hobby','hobbies','mountain','book','beyond','life'],a:"Outside SEO, Divya is a mountain lover who’s happiest where the air is thin, and she has 100+ books and counting."},
- {k:['catalyst','cat','who are you','kitten'],a:"I’m Catalyst, a curious lost kitten who keeps Divya company. In the game, I’m trying to find my way home through Search City."},
- {k:['career','experience','timeline','history','work'],a:"Most recent: CreditMitra audience growth, March to September 2026. Other highlights: programmatic SEO at Postfity and organic search at Simplified. Full history is on LinkedIn."},
- {k:['conversion','cro'],a:"At Simplified, the team increased the conversion rate by 30% alongside the organic click growth. Divya’s approach is turning clicks into conversions, measured end to end."}
-];
-var FALL="Meow? I only know what’s in this portfolio. Try asking about Postfity, Simplified, CreditMitra, her skills and tools, or how to get in touch.";
-function reply(q){
-  var s=' '+q.toLowerCase()+' ';
-  for(var i=0;i<KB.length;i++){for(var j=0;j<KB[i].k.length;j++){if(s.indexOf(KB[i].k[j])>-1)return KB[i].a}}
-  return FALL;
-}
-function ask(q){q=q.trim();if(!q)return;addMsg(q,'me');setTimeout(function(){addMsg(reply(q),'bot')},380)}
-addMsg("Meow! I’m MeowSEO. Ask me about Divya’s case studies, skills or how to reach her.",'bot');
-["What did Divya do at Postfity?","Which tools does she use?","How do I contact her?","Tell me about the game"].forEach(function(q){
-  var b=document.createElement('button');b.type='button';b.className='chip';b.textContent=q;b.onclick=function(){ask(q)};sugg.appendChild(b)});
-$('#chatForm').addEventListener('submit',function(e){e.preventDefault();var i=$('#chatIn');ask(i.value);i.value=''});
+/* ---------- MeowSEO: predefined Q&A (no AI, no API) ----------
+   Questions and answers live in js/meowseo-data.js. Nothing is generated. */
+(function(){
+  var D=window.MEOWSEO;if(!D)return;
+  var log=$('#log'),sugg=$('#sugg'),askLabel=$('#askLabel'),cats=$('#cats'),moreBtn=$('#moreQ');
+  var byId={},catOf={},asked={},busy=false,lastAside=-1,tip=null;
+  D.categories.forEach(function(c){c.questions.forEach(function(q){byId[q.id]=q;catOf[q.id]=c})});
+
+  function scrollLog(){log.scrollTop=log.scrollHeight}
+  function userMsg(t){var d=document.createElement('div');d.className='b me';d.innerHTML='<p>'+esc(t)+'</p>';log.appendChild(d);scrollLog()}
+  function botNode(html){var d=document.createElement('div');d.className='b bot';d.innerHTML='<img src="'+FLOAT+'" alt=""><div class="bub">'+html+'</div>';return d}
+  function paras(arr){return arr.map(function(p){return '<p>'+esc(p)+'</p>'}).join('')}
+  function aside(){var a=D.asides;if(!a||!a.length)return '';var i;do{i=Math.floor(Math.random()*a.length)}while(i===lastAside&&a.length>1);lastAside=i;return '<small class="aside">'+esc(a[i])+'</small>'}
+  function answerHtml(q){
+    var h=paras(q.a);
+    if(q.link)h+='<button class="link" data-go="'+q.link.go+'"'+(q.link.focus?' data-focus="'+q.link.focus+'"':'')+'>'+esc(q.link.label)+' →</button>';
+    return h+aside();
+  }
+  function deliver(html,after){
+    busy=true;
+    var t=document.createElement('div');t.className='b bot typing';
+    t.innerHTML='<img src="'+FLOAT+'" alt=""><div class="bub" role="status" aria-label="MeowSEO is typing"><i></i><i></i><i></i></div>';
+    log.appendChild(t);scrollLog();
+    setTimeout(function(){t.remove();log.appendChild(botNode(html));scrollLog();busy=false;if(after)after()},reduce?0:650);
+  }
+  function chip(id){
+    var q=byId[id],done=asked[id];
+    return '<button type="button" class="qchip'+(done?' done':'')+'" data-q="'+id+'"><span class="paw" aria-hidden="true">'+(done?'✓':'🐾')+'</span><span>'+esc(q.q)+'</span></button>';
+  }
+  function setChips(ids,label){askLabel.textContent=label;sugg.innerHTML=ids.map(chip).join('')}
+  function followUps(q){
+    var pool=(q.follow||[]).filter(function(i){return byId[i]&&i!==q.id&&!asked[i]});
+    var cat=catOf[q.id];
+    cat.questions.forEach(function(x){if(pool.length<3&&!asked[x.id]&&pool.indexOf(x.id)<0&&x.id!==q.id)pool.push(x.id)});
+    pool=pool.slice(0,3);
+    if(pool.length)setChips(pool,'Ask next');
+    else{sugg.innerHTML='';askLabel.textContent='You’ve explored this corner. Tap More questions to try another topic.'}
+  }
+  function setOpen(open){cats.hidden=!open;moreBtn.setAttribute('aria-expanded',open?'true':'false');moreBtn.textContent=open?'Hide topics':'More questions'}
+  function ask(id,typed){
+    if(busy)return;var q=byId[id];if(!q)return;
+    asked[id]=1;if(!typed)userMsg(q.q);setOpen(false);
+    deliver(answerHtml(q),function(){followUps(q)});
+  }
+  function openCategory(c,viaTyping){
+    setOpen(false);
+    var ids=c.questions.map(function(q){return q.id});
+    setChips(ids,c.name+' · pick a question');
+    if(viaTyping)deliver(paras(['Here’s what I have on '+c.name.toLowerCase()+'. Pick a question below.']),null);
+  }
+  function score(keys,text){var s=0;(keys||[]).forEach(function(k){if(text.indexOf(k.toLowerCase())>-1)s+=k.length});return s}
+  function match(text){
+    var t=text.toLowerCase(),bq=null,bs=0,bc=null,cs=0;
+    Object.keys(byId).forEach(function(id){var s=score(byId[id].keys,t);if(s>bs){bs=s;bq=id}});
+    D.categories.forEach(function(c){var s=score(c.keys,t);if(s>cs){cs=s;bc=c}});
+    if(bs>0&&bs>=cs)return {q:bq};
+    if(cs>0)return {c:bc};
+    return null;
+  }
+  function start(){
+    log.innerHTML='';asked={};busy=false;
+    log.appendChild(botNode(paras([D.intro])));
+    setChips(D.starters.filter(function(i){return byId[i]}),'Start here');
+    setOpen(false);
+  }
+
+  // category grid
+  cats.innerHTML=D.categories.map(function(c){
+    return '<button type="button" class="catcard" data-c="'+c.id+'"><b>'+esc(c.name)+'</b><span>'+esc(c.blurb)+'</span><em>'+c.questions.length+' questions</em></button>';
+  }).join('');
+  cats.addEventListener('click',function(e){
+    var b=e.target.closest('.catcard');if(!b)return;
+    D.categories.forEach(function(c){if(c.id===b.dataset.c)openCategory(c,false)});
+  });
+  sugg.addEventListener('click',function(e){var b=e.target.closest('.qchip');if(b)ask(b.dataset.q,false)});
+  moreBtn.addEventListener('click',function(){setOpen(cats.hidden)});
+  $('#meowReset').addEventListener('click',start);
+
+  $('#chatForm').addEventListener('submit',function(e){
+    e.preventDefault();var inp=$('#chatIn'),text=inp.value.trim();if(!text||busy)return;inp.value='';
+    userMsg(text);var m=match(text);
+    if(m&&m.q)ask(m.q,true);
+    else if(m&&m.c)openCategory(m.c,true);
+    else{setOpen(false);deliver(paras([D.fallback]),function(){setChips(D.starters.filter(function(i){return byId[i]}),'Try one of these')})}
+  });
+  start();
+})();
 
 /* =====================================================================
    HOMEPAGE CONTENT. Edit the lists below to update the homepage.
@@ -293,16 +344,16 @@ var STEPS=[
  ['Measure','Track clicks, sign-ups and conversions, then feed what I learn into the next round.']
 ];
 var BUILT=[
- {t:'Programmatic page systems',tag:'Programmatic SEO',img:'icon-proof.png',sum:'Template and data systems that turn into many ranking pages.',
+ {t:'Programmatic page systems',tag:'Programmatic SEO',img:'assets/icon-proof.png',sum:'Template and data systems that turn into many ranking pages.',
   pts:['Postfity: organic traffic from 450 to 1M with programmatic SEO and automation.','Otto: 170 pages launched.','Google Sheets holds keyword lists, page data and templates.'],
   links:[['s05','cs-postfity','Postfity case study'],['s05','cs-otto','Otto case study']]},
- {t:'SEO dashboards and reporting',tag:'Analytics',img:'icon-intro.png',sum:'Reporting that connects search activity to outcomes.',
+ {t:'SEO dashboards and reporting',tag:'Analytics',img:'assets/icon-intro.png',sum:'Reporting that connects search activity to outcomes.',
   pts:['Search Console for clicks, impressions and indexing.','GA4 for audiences, events and conversions.','Tag Manager for event tracking and Looker Studio for dashboards.'],
   links:[['s04',null,'Skills & tools']]},
- {t:'Technical SEO audits',tag:'Technical SEO',img:'icon-cases.png',sum:'Checks that keep important pages crawlable, indexable and fast.',
+ {t:'Technical SEO audits',tag:'Technical SEO',img:'assets/icon-cases.png',sum:'Checks that keep important pages crawlable, indexable and fast.',
   pts:['Crawls with Screaming Frog to audit links and metadata.','PageSpeed Insights for performance and Core Web Vitals.','Rich Results Test for rich result eligibility.'],
   links:[['s04',null,'Skills & tools']]},
- {t:'AI search experiments',tag:'GEO & AEO',img:'icon-skills.png',sum:'Testing how trustworthy information becomes easy for AI search to cite.',
+ {t:'AI search experiments',tag:'GEO & AEO',img:'assets/icon-skills.png',sum:'Testing how trustworthy information becomes easy for AI search to cite.',
   pts:['Clear entities and truthful structured data.','Natural-language questions answered directly.','No manipulation. Deceiving AI search is not a durable strategy.'],
   links:[['s02',null,'Search City game'],['s09',null,'Ask MeowSEO']]}
 ];

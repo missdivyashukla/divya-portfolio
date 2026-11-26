@@ -299,3 +299,34 @@ nav#dock button[aria-current="true"] i{color:var(--accent)}
 .fc-item .v{font-weight:500;word-break:break-all;font-size:.92rem}
 .fc-item .btn{margin-top:6px}
 .tl li.hl2 .when{color:var(--mut)}
+
+/* ===== MeowSEO curated Q&A ===== */
+.meow-head{display:flex;align-items:center;gap:10px}
+.meow-head img{width:40px;height:40px;border-radius:50%;object-fit:cover;background:#000;border:1px solid var(--line);flex:none}
+.meow-head div{display:flex;flex-direction:column;min-width:0;flex:1;line-height:1.25}
+.meow-head b{font:600 1.05rem var(--display)}
+.meow-head span{font-size:.76rem;color:var(--mut)}
+.meow-head .chip{padding:5px 12px;font-size:.78rem;flex:none}
+.b .bub{background:var(--card2);border-radius:16px;border-bottom-left-radius:4px;padding:11px 14px;display:grid;gap:8px;font-size:.93rem;line-height:1.5;min-width:0}
+.b.bot .bub p{padding:0;background:none;border-radius:0;font-size:inherit}
+.b .bub .link{justify-self:start}
+.aside{color:var(--mut);font-style:italic;font-size:.78rem}
+.b.typing .bub{display:flex;gap:5px;align-items:center;padding:14px 16px}
+.b.typing i{display:block;width:7px;height:7px;border-radius:50%;background:var(--accent);animation:bob 1s ease-in-out infinite}
+.b.typing i:nth-child(2){animation-delay:.15s}.b.typing i:nth-child(3){animation-delay:.3s}
+@keyframes bob{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+.ask{display:grid;gap:10px;border-top:1px dashed var(--line);padding-top:12px}
+.ask-label{font-size:.76rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.qchip{display:flex;gap:10px;align-items:flex-start;text-align:left;background:var(--card2);border:1px solid var(--line);color:var(--fg);border-radius:14px;padding:10px 14px;font:500 .88rem/1.35 var(--body);cursor:pointer;max-width:100%;min-width:0;transition:border-color .2s,transform .2s}
+.qchip:hover{border-color:var(--accent);transform:translateY(-1px)}
+.qchip .paw{flex:none;font-size:.85rem;line-height:1.35}
+.qchip.done{opacity:.6}
+.qchip.done .paw{color:var(--good);font-weight:700}
+.ask-actions .btn{padding:8px 16px;font-size:.85rem}
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}
+.cats[hidden]{display:none}
+.catcard{display:flex;flex-direction:column;gap:3px;text-align:left;background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:12px;color:var(--fg);font-family:var(--body);cursor:pointer;min-width:0}
+.catcard:hover{border-color:var(--accent)}
+.catcard b{font:600 .92rem/1.2 var(--display)}
+.catcard span{font-size:.78rem;color:var(--mut)}
+.catcard em{font-style:normal;font-size:.72rem;color:var(--accent);font-weight:600;margin-top:2px}

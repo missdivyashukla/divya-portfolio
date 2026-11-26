@@ -9,11 +9,11 @@
 <meta property="og:title" content="Divya Shukla SEO Portfolio">
 <meta property="og:description" content="Programmatic SEO, AEO and GEO, automation and organic growth, with Catalyst the cat.">
 <meta property="og:type" content="website">
-<link rel="icon" type="image/png" href="catalyst-avatar.png">
+<link rel="icon" type="image/png" href="assets/catalyst-avatar.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
@@ -41,7 +41,7 @@
     <div class="catstage">
       <div id="herobubble" class="speech" role="status" aria-live="polite"></div>
       <button class="catwrap" id="herowrap" aria-label="Say hi to Catalyst">
-        <img class="hero-cat" id="herocat" src="catalyst-hero.png" alt="Catalyst the cat in a beanie, typing on a laptop next to bubble tea and a stack of books" width="182" height="162">
+        <img class="hero-cat" id="herocat" src="assets/catalyst-hero.png" alt="Catalyst the cat in a beanie, typing on a laptop next to bubble tea and a stack of books" width="182" height="162">
       </button>
     </div>
   </div>
@@ -171,14 +171,14 @@
   <div class="explore" style="margin-top:0;padding-top:0;border:0">
     <h2>Explore my portfolio</h2>
     <div class="grid-nav" style="margin-top:16px">
-      <button class="tile" data-go="s02"><span><small>02</small><b>Introduction</b></span><img src="icon-intro.png" alt=""></button>
-      <button class="tile" data-go="s03"><span><small>03</small><b>Proof of work</b></span><img src="icon-proof.png" alt=""></button>
-      <button class="tile" data-go="s04"><span><small>04</small><b>Skills &amp; tools</b></span><img src="icon-skills.png" alt=""></button>
-      <button class="tile" data-go="s05"><span><small>05</small><b>Case studies</b></span><img src="icon-cases.png" alt=""></button>
-      <button class="tile" data-go="s06"><span><small>06</small><b>Career timeline</b></span><img src="icon-career.png" alt=""></button>
+      <button class="tile" data-go="s02"><span><small>02</small><b>Introduction</b></span><img src="assets/icon-intro.png" alt=""></button>
+      <button class="tile" data-go="s03"><span><small>03</small><b>Proof of work</b></span><img src="assets/icon-proof.png" alt=""></button>
+      <button class="tile" data-go="s04"><span><small>04</small><b>Skills &amp; tools</b></span><img src="assets/icon-skills.png" alt=""></button>
+      <button class="tile" data-go="s05"><span><small>05</small><b>Case studies</b></span><img src="assets/icon-cases.png" alt=""></button>
+      <button class="tile" data-go="s06"><span><small>06</small><b>Career timeline</b></span><img src="assets/icon-career.png" alt=""></button>
       <button class="tile" data-go="s07"><span><small>07</small><b>About me</b></span><span class="glyph" aria-hidden="true">⛰️</span></button>
       <button class="tile" data-go="s08"><span><small>08</small><b>Contact</b></span><span class="glyph" aria-hidden="true">✉</span></button>
-      <button class="tile" data-go="s09"><span><small>09</small><b>Ask the cat</b></span><img src="catalyst-avatar.png" alt="" style="border-radius:50%"></button>
+      <button class="tile" data-go="s09"><span><small>09</small><b>Ask the cat</b></span><img src="assets/catalyst-avatar.png" alt="" style="border-radius:50%"></button>
     </div>
   </div>
 </div></section>
@@ -369,12 +369,22 @@
 <section class="sec page" id="s09" data-route="ask-the-cat" hidden><div class="wrap">
   <div class="eyebrow">09 · Ask the cat</div>
   <h2>MeowSEO’s corner</h2>
-  <p class="lede">A chatbot powered by Catalyst the cat. It answers questions about Divya’s portfolio, SEO case studies and organic search, with the occasional meow.</p>
-  <div class="card chat">
+  <p class="lede">Not an AI. A cat with a menu. Tap a question to explore Divya’s SEO career, projects and expertise. Every answer was written by Divya.</p>
+  <div class="card chat meow">
+    <div class="meow-head">
+      <img src="assets/catalyst-avatar.png" alt="" width="40" height="40">
+      <div><b>MeowSEO</b><span>Curated questions, hand-written answers</span></div>
+      <button type="button" class="chip" id="meowReset">Start over</button>
+    </div>
     <div class="log" id="log" aria-live="polite"></div>
-    <div class="sugg" id="sugg"></div>
+    <div class="ask">
+      <div class="ask-label" id="askLabel">Start here</div>
+      <div class="sugg" id="sugg"></div>
+      <div class="ask-actions"><button type="button" class="btn" id="moreQ" aria-expanded="false" aria-controls="cats">More questions</button></div>
+      <div class="cats" id="cats" hidden></div>
+    </div>
     <form id="chatForm" autocomplete="off">
-      <input id="chatIn" type="text" placeholder="Ask about the case studies, tools, contact…" aria-label="Ask MeowSEO">
+      <input id="chatIn" type="text" placeholder="Or type a topic, like Postfity or tools…" aria-label="Type a topic for MeowSEO">
       <button class="btn pri" type="submit">Send</button>
     </form>
   </div>
@@ -382,13 +392,14 @@
 </div></section>
 
 <div id="cat">
-  <div id="hehe">hehe, fish!</div>
+  <div id="hehe">Hehehe! 🐟</div>
   <span id="purrs">🐾 <span id="purrN">0</span> purrs</span>
-  <button id="catbtn" aria-label="Pet Catalyst"><img id="catimg" src="catalyst-avatar.png" alt="Catalyst the cat, looking up"></button>
+  <button id="catbtn" aria-label="Pet Catalyst"><img id="catimg" src="assets/catalyst-avatar.png" alt="Catalyst the cat, looking up"></button>
 </div>
 
 <nav id="dock" aria-label="Sections"></nav>
 
-<script src="main.js" defer></script>
+<script src="js/meowseo-data.js" defer></script>
+<script src="js/main.js" defer></script>
 </body>
 </html>
