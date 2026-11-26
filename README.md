@@ -20,6 +20,28 @@ Dashboard: Workers & Pages > Create > Pages > Connect to Git, pick the repo, ent
 Direct upload instead of Git: run `npm run build`, then `npx wrangler pages deploy dist`
 (or drag the `dist` folder into the dashboard's Direct Upload).
 
+## Getting the files into GitHub with the folders intact
+
+GitHub's web "upload files" page can drop folders if you select files individually.
+Use one of these instead:
+
+1. **Git (most reliable).** Unzip, open a terminal inside the unzipped folder, then:
+
+       git init
+       git add -A
+       git commit -m "Portfolio"
+       git branch -M main
+       git remote add origin https://github.com/<you>/<repo>.git
+       git push -u origin main --force
+
+2. **GitHub web upload.** Drag the folders `src` and `scripts` themselves (not the files inside them)
+   together with `package.json`, `package-lock.json`, `wrangler.toml`, `README.md`, `.gitignore`
+   and `.node-version` into the upload box. Hidden files such as `.gitignore` and `.node-version`
+   are easy to miss; they are optional but recommended.
+
+After uploading, the repository root must show `src/`, `scripts/` and `package.json`.
+`npm run build` stops with a list of missing files if the structure is wrong.
+
 ## Local preview
 
     npm run dev      # builds, then serves dist/ at http://localhost:8788
