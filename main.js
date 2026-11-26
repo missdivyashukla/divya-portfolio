@@ -1,6 +1,6 @@
 (function(){
-var FLOAT="assets/catalyst-avatar.png";
-var GIGGLE="assets/catalyst-giggle.png";
+var FLOAT="catalyst-avatar.png";
+var GIGGLE="catalyst-giggle.png";
 (new Image()).src=GIGGLE;
 var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function $(s,r){return (r||document).querySelector(s)}
