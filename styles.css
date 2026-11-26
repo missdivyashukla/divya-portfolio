@@ -172,7 +172,7 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);color:v
 #catbtn img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .12s ease-out}
 #catbtn.purr{animation:giggle .35s ease-in-out 3}
 #purrs{background:rgba(16,17,24,.92);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.78rem;font-weight:600;font-variant-numeric:tabular-nums}
-#hehe{position:absolute;right:76px;bottom:40px;background:var(--fg);color:#111;font-weight:600;font-size:.82rem;padding:6px 12px;border-radius:12px;opacity:0;pointer-events:none;transition:opacity .25s;white-space:nowrap}
+#hehe{position:absolute;right:0;bottom:calc(100% + 10px);background:var(--card);color:var(--fg);border:1px solid var(--line);font-weight:600;font-size:.9rem;padding:8px 16px;border-radius:14px;opacity:0;pointer-events:none;transition:opacity .25s;white-space:nowrap}
 #hehe.on{opacity:1}
 nav#dock{position:fixed;left:0;right:0;bottom:0;z-index:45;background:rgba(10,10,12,.94);border-top:1px solid var(--line);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px));display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
 nav#dock::-webkit-scrollbar{display:none}
