@@ -1,5 +1,7 @@
 (function(){
-var FLOAT="catalyst-avatar.png";
+var FLOAT="assets/catalyst-avatar.png";
+var GIGGLE="assets/catalyst-giggle.png";
+(new Image()).src=GIGGLE;
 var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function $(s,r){return (r||document).querySelector(s)}
 function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
@@ -107,7 +109,7 @@ function purrSound(){try{
 var catbtn=$('#catbtn'),catimg=$('#catimg');
 catbtn.addEventListener('click',function(){
   purrs++;purrN.textContent=purrs;try{localStorage.setItem('purrs',String(purrs))}catch(e){}
-  purrSound();catbtn.classList.remove('purr');void catbtn.offsetWidth;catbtn.classList.add('purr');
+  purrSound();if(!rainBusy)giggle(1400);catbtn.classList.remove('purr');void catbtn.offsetWidth;catbtn.classList.add('purr');
 });
 window.addEventListener('pointermove',function(e){
   if(e.pointerType==='touch')return;
@@ -115,17 +117,18 @@ window.addEventListener('pointermove',function(e){
   var dx=(e.clientX-cx),dy=(e.clientY-cy),d=Math.max(1,Math.hypot(dx,dy)),k=Math.min(1,d/300);
   catimg.style.transform='translate('+(dx/d*5*k).toFixed(1)+'px,'+(dy/d*4*k).toFixed(1)+'px) scale(1.06)';
 });
-var hehe=$('#hehe'),rainBusy=false;
+var hehe=$('#hehe'),rainBusy=false,gT=null;
+function giggle(ms){catimg.src=GIGGLE;hehe.classList.add('on');clearTimeout(gT);gT=setTimeout(function(){catimg.src=FLOAT;hehe.classList.remove('on')},ms)}
 function rain(ms){
   if(reduce||rainBusy)return;rainBusy=true;
   var n=Math.round(ms/90),i=0;
-  hehe.classList.add('on');var hc=$('#herocat');hc.classList.remove('giggle');void hc.offsetWidth;hc.classList.add('giggle');
+  giggle(ms+900);var hc=$('#herocat');hc.classList.remove('giggle');void hc.offsetWidth;hc.classList.add('giggle');
   var iv=setInterval(function(){
     var el=document.createElement('div');el.className='rain'+(Math.random()<.5?' kib':'');
     if(!el.classList.contains('kib')){el.textContent='🐟';el.style.fontSize=(16+Math.random()*8)+'px'}
     el.style.left=(Math.random()*100)+'vw';el.style.animationDuration=(1.6+Math.random()*1.4)+'s';
     document.body.appendChild(el);setTimeout(function(){el.remove()},3200);
-    if(++i>=n){clearInterval(iv);setTimeout(function(){hehe.classList.remove('on');rainBusy=false},900)}
+    if(++i>=n){clearInterval(iv);setTimeout(function(){rainBusy=false},900)}
   },90);
 }
 var title=document.title;
@@ -290,16 +293,16 @@ var STEPS=[
  ['Measure','Track clicks, sign-ups and conversions, then feed what I learn into the next round.']
 ];
 var BUILT=[
- {t:'Programmatic page systems',tag:'Programmatic SEO',img:'icon-proof.png',sum:'Template and data systems that turn into many ranking pages.',
+ {t:'Programmatic page systems',tag:'Programmatic SEO',img:'assets/icon-proof.png',sum:'Template and data systems that turn into many ranking pages.',
   pts:['Postfity: organic traffic from 450 to 1M with programmatic SEO and automation.','Otto: 170 pages launched.','Google Sheets holds keyword lists, page data and templates.'],
   links:[['s05','cs-postfity','Postfity case study'],['s05','cs-otto','Otto case study']]},
- {t:'SEO dashboards and reporting',tag:'Analytics',img:'icon-intro.png',sum:'Reporting that connects search activity to outcomes.',
+ {t:'SEO dashboards and reporting',tag:'Analytics',img:'assets/icon-intro.png',sum:'Reporting that connects search activity to outcomes.',
   pts:['Search Console for clicks, impressions and indexing.','GA4 for audiences, events and conversions.','Tag Manager for event tracking and Looker Studio for dashboards.'],
   links:[['s04',null,'Skills & tools']]},
- {t:'Technical SEO audits',tag:'Technical SEO',img:'icon-cases.png',sum:'Checks that keep important pages crawlable, indexable and fast.',
+ {t:'Technical SEO audits',tag:'Technical SEO',img:'assets/icon-cases.png',sum:'Checks that keep important pages crawlable, indexable and fast.',
   pts:['Crawls with Screaming Frog to audit links and metadata.','PageSpeed Insights for performance and Core Web Vitals.','Rich Results Test for rich result eligibility.'],
   links:[['s04',null,'Skills & tools']]},
- {t:'AI search experiments',tag:'GEO & AEO',img:'icon-skills.png',sum:'Testing how trustworthy information becomes easy for AI search to cite.',
+ {t:'AI search experiments',tag:'GEO & AEO',img:'assets/icon-skills.png',sum:'Testing how trustworthy information becomes easy for AI search to cite.',
   pts:['Clear entities and truthful structured data.','Natural-language questions answered directly.','No manipulation. Deceiving AI search is not a durable strategy.'],
   links:[['s02',null,'Search City game'],['s09',null,'Ask MeowSEO']]}
 ];
