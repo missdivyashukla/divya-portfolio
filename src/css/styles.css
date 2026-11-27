@@ -496,3 +496,11 @@ nav#dock button[aria-current="true"] i{color:var(--accent)}
 .k4{display:none}
 .intro2-h{font:700 clamp(1.9rem,5.4vw,3rem)/1.12 var(--display);text-wrap:balance}
 .intro2 .who{margin-bottom:8px}
+/* skills / career additions */
+.exp .tagrow{margin-top:10px}
+.edu{margin-top:26px;padding:18px}.edu h3{font:600 1.05rem var(--display)}.edu p{margin-top:6px;color:var(--mut);font-size:.92rem}
+.tl .co{font:500 .8rem var(--body);color:var(--mut);margin-left:6px}
+.stat .what{font-size:.9rem;line-height:1.4}
+.stats{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.stat .big{font-size:clamp(1.9rem,6.5vw,2.5rem);overflow-wrap:anywhere}
+.stats{grid-template-columns:repeat(auto-fit,minmax(285px,1fr))}
