@@ -504,3 +504,5 @@ nav#dock button[aria-current="true"] i{color:var(--accent)}
 .stats{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
 .stat .big{font-size:clamp(1.9rem,6.5vw,2.5rem);overflow-wrap:anywhere}
 .stats{grid-template-columns:repeat(auto-fit,minmax(285px,1fr))}
+#sndbtn{background:rgba(16,17,24,.92);border:1px solid var(--line);border-radius:999px;width:30px;height:30px;padding:0;font-size:.85rem;cursor:pointer;color:var(--fg);line-height:1}
+#sndbtn:hover{border-color:var(--accent)}
