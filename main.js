@@ -425,6 +425,32 @@ $('#copyHomeMail').addEventListener('click',function(){
   try{navigator.clipboard.writeText(txt).then(done,fallback)}catch(e){fallback()}
 });
 
+/* ---------- intro hero + about enhancements ---------- */
+(function(){
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* rotating "currently" line */
+  var ROT=["Building scalable organic growth.","Turning search opportunities into growth systems.","Experimenting with programmatic SEO.","Exploring AEO and GEO.","Finding what others overlook."];
+  var rot=$('#rot'),ri=0;
+  if(rot&&!rm){setInterval(function(){rot.classList.add('out');setTimeout(function(){ri=(ri+1)%ROT.length;rot.textContent=ROT[ri];rot.classList.remove('out')},350)},3600)}
+  /* typed search queries */
+  var Q=["programmatic seo","how do brands appear in AI answers","technical seo audit","aeo vs geo"],st=$('#serpText');
+  if(st){
+    if(rm){st.textContent=Q[0]}
+    else{var qi=0,ci=0,del=false;(function tick(){var q=Q[qi];
+      if(!del){ci++;st.textContent=q.slice(0,ci);if(ci===q.length){del=true;return setTimeout(tick,1800)}}
+      else{ci--;st.textContent=q.slice(0,ci);if(ci===0){del=false;qi=(qi+1)%Q.length}}
+      setTimeout(tick,del?28:70)})()}
+  }
+  /* counters: count up once when visible */
+  function count(el){var to=+el.getAttribute('data-to'),suf=el.getAttribute('data-suffix')||'';
+    if(rm){el.textContent=to+suf;return}
+    var t0=null;function f(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/1100),e=1-Math.pow(1-k,3);el.textContent=Math.round(to*e)+(k<1?'':suf);if(k<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
+  var cs=$$('.counter');
+  if('IntersectionObserver' in window){var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){count(e.target);o.unobserve(e.target)}})},{threshold:.4});cs.forEach(function(c){o.observe(c)})}
+  /* Otto: 170 squares, one per landing page launched */
+  var d=$('#ottoDots2');if(d){var h='';for(var i=0;i<170;i++)h+='<i style="--i:'+i+'"></i>';d.innerHTML=h}
+})();
+
 /* ---------- start ---------- */
 showPage(location.hash.slice(1));
 
