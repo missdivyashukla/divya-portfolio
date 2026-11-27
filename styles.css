@@ -494,3 +494,5 @@ nav#dock button[aria-current="true"] i{color:var(--accent)}
 .k1{top:10%;left:0}.k2{top:12%;right:0}.k3{top:46%;left:0}.k4{top:46%;right:0}.k5{display:none}
 @media (max-width:520px){.hero .serp{margin-bottom:60px}.k3,.k4{top:40%}}
 .k4{display:none}
+.intro2-h{font:700 clamp(1.9rem,5.4vw,3rem)/1.12 var(--display);text-wrap:balance}
+.intro2 .who{margin-bottom:8px}
