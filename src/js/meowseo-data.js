@@ -53,7 +53,7 @@ window.MEOWSEO = {
         { id: "enjoy", q: "What does she enjoy most about SEO?",
           keys: ["enjoy", "passion", "motivat", "favourite part", "favorite part"],
           a: [
-            "Building a process that can scale. She says the Postfity project shows that best: organic traffic started at 450, and she worked with programmatic SEO and automation to grow it to 1M.",
+            "Building a process that can scale. She says the Postfity project shows that best: monthly organic clicks went from 450 to 100K in three months through programmatic SEO, keyword clustering and internal linking.",
             "Her work has since grown to cover more than getting people to a site, including conversion at Simplified and audience growth at CreditMitra."
           ],
           follow: ["cs-postfity", "business", "pseo"] },
@@ -78,7 +78,7 @@ window.MEOWSEO = {
           keys: ["contact", "email", "reach", "hire", "linkedin", "resume", "résumé", "cv", "talk to", "connect"],
           a: [
             "Email shukladivya1972@gmail.com, or message her on LinkedIn at linkedin.com/in/divya-kumari-shukla.",
-            "Her résumé is available on request by email."
+            "Her résumé is on the Contact page as a PDF download."
           ],
           link: { go: "s08", label: "Open Contact" },
           follow: ["problems", "linkedin", "path"] }
@@ -138,7 +138,7 @@ window.MEOWSEO = {
         { id: "headline", q: "What are her headline results?",
           keys: ["headline", "results", "achievement", "numbers", "metrics", "proof"],
           a: [
-            "Postfity: organic traffic from 450 to 1M with programmatic SEO and automation.",
+            "Postfity: monthly organic clicks from 450 to 100K in three months with programmatic SEO.",
             "CreditMitra: active users from 4.6K in March 2026 to 155K+ by September 2026, about 33.8×. Reported daily Search Console clicks grew from roughly 15 to 9,000+.",
             "Otto: 170 pages launched, and reported daily sign-ups from 4 to 30.",
             "Simplified: reported daily clicks from 0 to 15,000, with a 30% higher conversion rate across the team effort."
@@ -183,7 +183,7 @@ window.MEOWSEO = {
         { id: "pseo-where", q: "Where has she used it?",
           keys: ["where has", "used programmatic", "examples of programmatic"],
           a: [
-            "At Postfity, programmatic SEO and automation took organic traffic from 450 to 1M.",
+            "At Postfity, programmatic SEO took monthly organic clicks from 450 to 100K in three months.",
             "At Otto, 170 pages were launched, and reported daily sign-ups moved from 4 to 30."
           ],
           follow: ["cs-postfity", "cs-otto", "pseo-quality"] },
@@ -291,7 +291,7 @@ window.MEOWSEO = {
           keys: ["postfity"],
           a: [
             "The challenge: grow organic traffic from a starting point of 450, by making SEO work repeatable at scale through programmatic SEO and automation.",
-            "The result: organic traffic from 450 to 1M. Divya says she grew it by combining programmatic SEO and automation."
+            "The result: monthly organic clicks from 450 to 100K in three months, through programmatic SEO, keyword clustering, landing-page frameworks and internal linking."
           ],
           link: { go: "s05", focus: "cs-postfity", label: "Open the Postfity case study" },
           follow: ["pseo", "cs-simplified", "tools-auto"] },
@@ -365,7 +365,7 @@ window.MEOWSEO = {
         { id: "linkedin", q: "Where can I see her full history?",
           keys: ["full history", "linkedin", "resume", "résumé", "cv"],
           a: [
-            "On LinkedIn at linkedin.com/in/divya-kumari-shukla. Her résumé is available on request by email."
+            "On LinkedIn at linkedin.com/in/divya-kumari-shukla. Her résumé is on the Contact page as a PDF download."
           ],
           link: { go: "s08", label: "Open Contact" },
           follow: ["contact", "path", "headline"] }
@@ -373,4 +373,3 @@ window.MEOWSEO = {
     }
   ]
 };
-
