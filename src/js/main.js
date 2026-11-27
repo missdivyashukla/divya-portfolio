@@ -56,6 +56,7 @@ fillList('#goodList',GOOD);fillList('#badList',BAD);
 var TOOLS=[
 ["Search performance & analytics",[["Google Search Console","Search clicks, impressions and indexing"],["Google Analytics 4","Website audiences, events and conversions"],["Google Tag Manager","Manage tags and event tracking"],["Looker Studio","Reporting and dashboards"]]],
 ["Keyword & competitor research",[["Ahrefs","Keyword research and backlink analysis"],["Semrush","Keyword, ranking and competitor research"],["Google Trends","Compare search interest over time"],["Google Keyword Planner","Keyword ideas and search estimates"]]],
+["Content & CMS",[["SurferSEO","Content optimization against top-ranking pages"],["Clearscope","Content grading and topic coverage"],["WordPress, Shopify, Webflow","Publishing and on-page implementation"]]],
 ["Technical SEO",[["Screaming Frog SEO Spider","Crawl pages and audit links and metadata"],["PageSpeed Insights","Page performance and Core Web Vitals"],["Rich Results Test","Check eligibility for Google rich results"]]],
 ["Programmatic SEO & automation",[["Google Sheets","Manage keyword lists, page data and templates"],["Google Apps Script","Automate spreadsheet tasks and reporting"],["n8n","Connect apps and automate recurring workflows"]]]];
 var chipBox=$('#toolChips'),toolBox=$('#tools');
@@ -345,7 +346,7 @@ var STEPS=[
 ];
 var BUILT=[
  {t:'Programmatic page systems',tag:'Programmatic SEO',img:'assets/icon-proof.png',sum:'Template and data systems that turn into many ranking pages.',
-  pts:['Postfity: organic traffic from 450 to 1M with programmatic SEO and automation.','Otto: 170 pages launched.','Google Sheets holds keyword lists, page data and templates.'],
+  pts:['Postfity: monthly organic clicks from 450 to 100K in three months with programmatic SEO.','Otto: 170 pages launched.','Google Sheets holds keyword lists, page data and templates.'],
   links:[['s05','cs-postfity','Postfity case study'],['s05','cs-otto','Otto case study']]},
  {t:'SEO dashboards and reporting',tag:'Analytics',img:'assets/icon-intro.png',sum:'Reporting that connects search activity to outcomes.',
   pts:['Search Console for clicks, impressions and indexing.','GA4 for audiences, events and conversions.','Tag Manager for event tracking and Looker Studio for dashboards.'],
@@ -364,10 +365,10 @@ var EXPLORING=[
  ['Search beyond blue links','Visibility in answers, summaries and assistants, not only the ten links.']
 ];
 var MINI_TL=[
- {when:'Mar–Sep 2026',t:'CreditMitra',d:'Audience growth from 4.6K to 155K+ active users. Daily GSC clicks from ~15 to 9,000+ (reported).',now:true},
+ {when:'May 2026 – now',t:'CreditMitra & PaisaOne',d:'Organic users from 17,168 to 155,589 (+806%). Daily clicks from 15 to 9,000.',now:true},
  {when:'Highlight',t:'Otto',d:'170 pages launched. Daily sign-ups from 4 to 30 (reported).'},
- {when:'Highlight',t:'Simplified',d:'Organic search growth and a 30% higher conversion rate.'},
- {when:'Highlight',t:'Postfity',d:'Programmatic SEO and automation took organic traffic from 450 to 1M.'},
+ {when:'Highlight',t:'Simplified',d:'Magic Remover grew from zero to 15K daily organic clicks.'},
+ {when:'Highlight',t:'Postfity',d:'Programmatic SEO took monthly organic clicks from 450 to 100K in three months.'},
  {when:'Focus today',t:'6 years in SEO',d:'Programmatic SEO, AEO and GEO, automation and growth analytics.'}
 ];
 var FUN=[
@@ -424,6 +425,32 @@ $('#copyHomeMail').addEventListener('click',function(){
   function fallback(){var r=document.createRange();r.selectNodeContents($('#homeMail'));var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Selected';setTimeout(function(){btn.textContent='Copy email'},1600)}
   try{navigator.clipboard.writeText(txt).then(done,fallback)}catch(e){fallback()}
 });
+
+/* ---------- intro hero + about enhancements ---------- */
+(function(){
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* rotating "currently" line */
+  var ROT=["Building scalable organic growth.","Turning search opportunities into growth systems.","Experimenting with programmatic SEO.","Exploring AEO and GEO.","Finding what others overlook."];
+  var rot=$('#rot'),ri=0;
+  if(rot&&!rm){setInterval(function(){rot.classList.add('out');setTimeout(function(){ri=(ri+1)%ROT.length;rot.textContent=ROT[ri];rot.classList.remove('out')},350)},3600)}
+  /* typed search queries */
+  var Q=["programmatic seo","how do brands appear in AI answers","technical seo audit","aeo vs geo"],st=$('#serpText');
+  if(st){
+    if(rm){st.textContent=Q[0]}
+    else{var qi=0,ci=0,del=false;(function tick(){var q=Q[qi];
+      if(!del){ci++;st.textContent=q.slice(0,ci);if(ci===q.length){del=true;return setTimeout(tick,1800)}}
+      else{ci--;st.textContent=q.slice(0,ci);if(ci===0){del=false;qi=(qi+1)%Q.length}}
+      setTimeout(tick,del?28:70)})()}
+  }
+  /* counters: count up once when visible */
+  function count(el){var to=+el.getAttribute('data-to'),suf=el.getAttribute('data-suffix')||'';
+    if(rm){el.textContent=to+suf;return}
+    var t0=null;function f(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/1100),e=1-Math.pow(1-k,3);el.textContent=Math.round(to*e)+(k<1?'':suf);if(k<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
+  var cs=$$('.counter');
+  if('IntersectionObserver' in window){var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){count(e.target);o.unobserve(e.target)}})},{threshold:.4});cs.forEach(function(c){o.observe(c)})}
+  /* Otto: 170 squares, one per landing page launched */
+  var d=$('#ottoDots2');if(d){var h='';for(var i=0;i<170;i++)h+='<i style="--i:'+i+'"></i>';d.innerHTML=h}
+})();
 
 /* ---------- start ---------- */
 showPage(location.hash.slice(1));
