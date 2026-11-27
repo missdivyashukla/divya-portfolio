@@ -98,15 +98,24 @@ function observeReveals(){
 /* ---------- cat: purr, chaser, rain, lonely tab ---------- */
 var purrs=0;try{purrs=parseInt(localStorage.getItem('purrs')||'0',10)||0}catch(e){}
 var purrN=$('#purrN');purrN.textContent=purrs;
-var actx=null;
-function purrSound(){try{
-  actx=actx||new (window.AudioContext||window.webkitAudioContext)();
-  var o=actx.createOscillator(),g=actx.createGain(),l=actx.createOscillator(),lg=actx.createGain();
-  o.type='sawtooth';o.frequency.value=62;l.frequency.value=22;lg.gain.value=.05;g.gain.value=.06;
-  l.connect(lg);lg.connect(g.gain);o.connect(g);g.connect(actx.destination);
-  var t=actx.currentTime;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.06,t+.15);g.gain.linearRampToValueAtTime(0,t+1.1);
-  o.start(t);l.start(t);o.stop(t+1.15);l.stop(t+1.15);
-}catch(e){}}
+/* ---------- cat sounds (play only after a click; mute is remembered) ---------- */
+var SOUNDS={pet:'assets/cat-pet.mp3',giggle:null},sndEls={},muted=false;
+try{muted=localStorage.getItem('catMuted')==='1'}catch(e){}
+function playSound(name,vol){
+  if(muted||!SOUNDS[name])return;
+  try{
+    var a=sndEls[name]||(sndEls[name]=new Audio(SOUNDS[name]));
+    a.volume=vol||.6;a.currentTime=0;var pr=a.play();if(pr&&pr.catch)pr.catch(function(){});
+  }catch(e){}
+}
+function purrSound(){playSound('pet',.6)}
+(function(){
+  var b=$('#sndbtn');if(!b)return;
+  function paint(){b.firstChild.textContent=muted?'🔇':'🔊';b.setAttribute('aria-pressed',muted?'true':'false');b.setAttribute('aria-label',muted?'Sound off. Click to unmute':'Sound on. Click to mute')}
+  paint();
+  b.addEventListener('click',function(){muted=!muted;try{localStorage.setItem('catMuted',muted?'1':'0')}catch(e){}
+    if(muted){Object.keys(sndEls).forEach(function(k){sndEls[k].pause()})}paint()});
+})();
 var catbtn=$('#catbtn'),catimg=$('#catimg');
 catbtn.addEventListener('click',function(){
   purrs++;purrN.textContent=purrs;try{localStorage.setItem('purrs',String(purrs))}catch(e){}
@@ -119,7 +128,7 @@ window.addEventListener('pointermove',function(e){
   catimg.style.transform='translate('+(dx/d*5*k).toFixed(1)+'px,'+(dy/d*4*k).toFixed(1)+'px) scale(1.06)';
 });
 var hehe=$('#hehe'),rainBusy=false,gT=null;
-function giggle(ms){catimg.src=GIGGLE;hehe.classList.add('on');clearTimeout(gT);gT=setTimeout(function(){catimg.src=FLOAT;hehe.classList.remove('on')},ms)}
+function giggle(ms){playSound('giggle',.5);catimg.src=GIGGLE;hehe.classList.add('on');clearTimeout(gT);gT=setTimeout(function(){catimg.src=FLOAT;hehe.classList.remove('on')},ms)}
 function rain(ms){
   if(reduce||rainBusy)return;rainBusy=true;
   var n=Math.round(ms/90),i=0;
@@ -416,7 +425,7 @@ function heroSay(){
   hb.textContent=HERO_LINES[i];hb.classList.add('on');clearTimeout(hbT);hbT=setTimeout(function(){hb.classList.remove('on')},2400);
 }
 var hw=$('#herowrap');
-hw.addEventListener('mouseenter',heroSay);hw.addEventListener('click',heroSay);hw.addEventListener('focus',heroSay);
+hw.addEventListener('mouseenter',heroSay);hw.addEventListener('click',function(){heroSay();playSound('pet',.5)});hw.addEventListener('focus',heroSay);
 
 /* ---------- copy email (home CTA) ---------- */
 $('#copyHomeMail').addEventListener('click',function(){
